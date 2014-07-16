@@ -7,10 +7,10 @@ websystems="apachectl ant"
 databases="mysql psql sqlite3"
 packagemanagers="brew"
 versionsystems="cvs git hg svn"
-other="xcodebuild"
+buildsystems="make xcodebuild"
 shells="bash csh fish ksh tcsh zsh"
 
-for language in $assemblers echo $languages $other echo $packagemanagers echo $websystems echo $databases echo $versionsystems echo $shells
+for language in $assemblers echo $languages $buildsystems echo $packagemanagers echo $websystems echo $databases echo $versionsystems echo $shells
 do
 	if [ `which $language` ]
 	then
@@ -61,6 +61,7 @@ do
 			svn        ) svn --version | grep 'svn, version' | sed 's/, version//' | sed 's/svn/Subversion/';;
 			
 			# build systems___________________________________________________________________
+			make       ) make -v | grep Make;;
 			xcodebuild ) echo; xcodebuild -version | grep Xcode;;
 			
 			# shell environments______________________________________________________________
