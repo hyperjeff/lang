@@ -5,11 +5,12 @@ assemblers="as clang nasm yasm" # gcc
 languages="erl fscript gfortran 8g 6g ghc java julia lua perl php python python3 ruby macruby gem xcrun"
 websystems="apachectl ant"
 databases="mysql psql sqlite3"
+packagemanagers="brew"
 versionsystems="cvs git hg svn"
 other="xcodebuild"
 shells="bash csh fish ksh tcsh zsh"
 
-for language in $assemblers echo $languages $other echo $websystems echo $databases echo $versionsystems echo $shells
+for language in $assemblers echo $languages $other echo $packagemanagers echo $websystems echo $databases echo $versionsystems echo $shells
 do
 	if [ `which $language` ]
 	then
@@ -38,6 +39,9 @@ do
 			macruby    ) macruby -v | awk '{ print $1,$3,$4; }';;
 			gem        ) gem -v | awk '{ print "Ruby Gem",$1 }';;
 			xcrun      ) xcrun swift -v 2>&1 | grep Swift | awk '{ print $1, $3 }';;
+			
+			# package managers________________________________________________________________
+			brew       ) echo "Brew" `brew --version`;;
 			
 			# web systems_____________________________________________________________________
 			apachectl  ) apachectl -v | grep Apache | awk '{ print $3}' | sed 's/\// /';;
