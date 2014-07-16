@@ -2,14 +2,14 @@
 echo
 
 assemblers="as clang nasm yasm" # gcc
-languages="erl fscript gfortran 8g 6g ghc java lua perl php python python3 ruby macruby gem xcrun"
+languages="erl fscript gfortran 8g 6g ghc java julia lua perl php python python3 ruby macruby gem xcrun"
 websystems="apachectl ant"
 databases="mysql psql sqlite3"
 versionsystems="cvs git hg svn"
 other="xcodebuild"
 shells="bash csh fish ksh tcsh zsh"
 
-for language in $assemblers echo $languages echo $websystems echo $databases echo $versionsystems echo $shells $other
+for language in $assemblers echo $languages $other echo $websystems echo $databases echo $versionsystems echo $shells
 do
 	if [ `which $language` ]
 	then
@@ -25,10 +25,11 @@ do
 			erl        ) erl +V 2>&1 | awk '{ print $1, $6 }';;
 			fscript    ) echo; echo "F-Script:"; fscript -v;;
 			gfortran   ) gfortran --version | grep GCC | awk '{ print "GFortran",$4 }';;
-			ghc        ) ghc --version | awk '{ print $4, $8 }';;
 			8g         ) 8g -V | awk '{ print "Go",$3,"(32-bit)" }';;
 			6g         ) 6g -V | awk '{ print "Go",$3,"(64-bit)" }';;
-			java       ) java -fullversion 2>&1 | sed 's/full version //' | sed 's/\"//g' | sed 's/java/Java/';;
+			ghc        ) ghc --version | awk '{print "Haskell (GHC)",$8}';;
+			java       ) javac -version 2>&1 | awk '{split($2,a,"."); split(a[3],b,"_"); print "Java",a[2],"update",b[2]}';;
+			julia      ) julia -v | awk '{print "Julia", $3}';;
 			lua        ) lua -e 'print( _VERSION )';;
 			perl       ) perl -version | grep 'is perl' | awk '{ print "Perl",$4 }';;
 			php        ) php -v | grep PHP | grep built | awk '{print $1,$2}';;
