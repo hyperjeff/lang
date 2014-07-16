@@ -10,7 +10,7 @@ versionsystems="cvs git hg svn"
 buildsystems="make xcodebuild"
 shells="bash csh fish ksh tcsh zsh"
 
-for language in $assemblers echo $languages $buildsystems echo $packagemanagers echo $websystems echo $databases echo $versionsystems echo $shells
+for language in $assemblers echo $languages echo $buildsystems echo $packagemanagers echo $websystems echo $databases echo $versionsystems echo $shells
 do
 	if [ `which $language` ]
 	then
@@ -62,7 +62,7 @@ do
 			
 			# build systems___________________________________________________________________
 			make       ) make -v | grep Make;;
-			xcodebuild ) echo; xcodebuild -version | grep Xcode;;
+			xcodebuild ) xcodebuild -version | grep Xcode;;
 			
 			# shell environments______________________________________________________________
 			bash       ) bash --version | head -n 1 | awk '{ print "bash: ",$4 }';;
