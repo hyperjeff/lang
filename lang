@@ -14,12 +14,16 @@ do
 	if [ `which $language` ]
 	then
 		case $language in
+			# assemblers______________________________________________________________________
 			as         ) as -v < /dev/null 2>&1 | awk '{ print $5,$6,$8 }';;
 			clang      ) clang --version 2>&1 | head -n 1 | awk '{ print "Clang",$4 }';;
 			gcc        ) gcc --version | grep gcc | awk '{ print "GCC",$3 }';;
 			nasm       ) nasm -v | awk '{ print $1,$2,$3 }';;
 			yasm       ) yasm --version | grep yasm | grep -v Run | awk '{ print $1, $2 }';;
+			
+			# languages_______________________________________________________________________
 			erl        ) erl +V 2>&1 | awk '{ print $1, $6 }';;
+			fscript    ) echo; echo "F-Script:"; fscript -v;;
 			gfortran   ) gfortran --version | grep GCC | awk '{ print "GFortran",$4 }';;
 			ghc        ) ghc --version | awk '{ print $4, $8 }';;
 			8g         ) 8g -V | awk '{ print "Go",$3,"(32-bit)" }';;
@@ -32,19 +36,28 @@ do
 			ruby       ) ruby -v | awk '{ print "Ruby",$2 }';;
 			macruby    ) macruby -v | awk '{ print $1,$3,$4; }';;
 			gem        ) gem -v | awk '{ print "Ruby Gem",$1 }';;
-			fscript    ) echo; echo "F-Script:"; fscript -v;;
 			xcrun      ) xcrun swift -v 2>&1 | grep Swift | awk '{ print $1, $3 }';;
+			
+			# web systems_____________________________________________________________________
 			apachectl  ) apachectl -v | grep Apache | awk '{ print $3}' | sed 's/\// /';;
 			ant        ) ant -version | awk '{ print $1,$2,$4 }';;
 			rails      ) rails -v;;
+			
+			# databases_______________________________________________________________________
 			mysql      ) mysql --version | awk '{ print $1, $5 }';;
 			psql       ) psql --version | grep -v contains | awk '{ print "PostgreSQL",$3 }';;
 			sqlite3    ) sqlite3 --version | awk '{ print "SQLite",$1 }';;
+			
+			# versioning______________________________________________________________________
 			cvs        ) cvs --version | grep client | sed 's/ (client\/server)//' | sed 's/ (CVS)//';;
 			git        ) git --version | awk '{print $1,$3}';;
 			hg         ) hg --version | head -n 1 | awk '{ split( $0,a," " ); print a[1],a[5] }' | sed 's/)//';;
 			svn        ) svn --version | grep 'svn, version' | sed 's/, version//' | sed 's/svn/Subversion/';;
+			
+			# build systems___________________________________________________________________
 			xcodebuild ) echo; xcodebuild -version | grep Xcode;;
+			
+			# shell environments______________________________________________________________
 			bash       ) bash --version | head -n 1 | awk '{ print "bash: ",$4 }';;
 			csh        ) csh --version | awk '{ print " csh: ",$2 }';;
 			fish       ) fish -v 2>&1 | awk '{ print "fish: ",$3 }';;
