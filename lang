@@ -2,7 +2,7 @@
 echo
 
 assemblers="clang as nasm yasm" # gcc
-languages="erl fscript gfortran 8g 6g ghc cabal java julia kotlinc lua ocaml perl php swipl python python3 ruby macruby gem rustc scala chez sagittarius xcrun"
+languages="erl fscript gfortran go 8g 6g ghc cabal java julia kotlinc lua ocaml perl php swipl python python3 ruby macruby gem rustc scala chez sagittarius xcrun"
 websystems="apachectl ant"
 databases="mysql psql sqlite3"
 packagemanagers="brew"
@@ -23,6 +23,7 @@ version () {
 		erl        ) erl +V 2>&1 | awk '{ print $1, $6 }';;
 		fscript    ) echo; echo "F-Script:"; fscript -v;;
 		gfortran   ) gfortran --version 2>&1 | grep "GCC" | awk '{print $1,$2,$4}';;
+		go         ) go version | awk '{print $3}' | sed 's/go/Go /';;
 		8g         ) 8g -V | awk '{ print "Go",$3,"(32-bit)" }';;
 		6g         ) 6g -V | awk '{ print "Go",$3,"(64-bit)" }';;
 		ghc        ) ghc --numeric-version | awk '{print "Haskell (GHC)",$0}';;
