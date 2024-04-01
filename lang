@@ -2,7 +2,7 @@
 echo
 
 assemblers="clang as nasm yasm" # gcc
-languages="apl erl fscript gfortran go 8g 6g ghc java julia kotlinc lua ocaml perl php gprolog swipl python python3 ruby macruby rustc scala sml chez sagittarius swift wolframscript"
+languages="apl erl fscript gfortran go 8g 6g ghc java julia kotlinc lua mojo ocaml perl php gprolog swipl python python3 ruby macruby rustc scala mit-scheme sml chez sagittarius swift wolframscript"
 languagePackageManagers="cabal gem"
 websystems="apachectl ant"
 databases="mysql psql sqlite3"
@@ -29,11 +29,12 @@ version () {
 		8g            ) 8g -V | awk '{ print "Go",$3,"(32-bit)" }';;
 		6g            ) 6g -V | awk '{ print "Go",$3,"(64-bit)" }';;
 		ghc           ) ghc --numeric-version | awk '{ print "Haskell (GHC)",$0 }';;
-		# java          ) javac -version 2>&1 | awk '{ split($2,a," "); print "Java",a[1] }';;
+		java          ) javac -version 2>&1 | awk '{split($2,a," "); print "Java",a[1]}';;
 		julia         ) julia -v | awk '{ print "Julia", $3 }';;
 		kotlinc       ) kotlinc -version 2>&1 | awk '{ print "Kotlin",$3 }';;
 		lua           ) lua -e 'print( _VERSION )';;
 		ocaml         ) ocaml -version | awk '{ print $2,$5 }';;
+		mojo          ) mojo --version | awk '{print "Mojo",$2}';;
 		perl          ) perl -v | grep 'is perl' | awk '{ print "Perl",$9 }' | sed 's/[\(\)v]//g';;
 		php           ) php -v | grep PHP | grep built | awk '{ print $1,$2 }';;
 		swipl         ) swipl --version | awk '{ print $1,$3}';;
@@ -43,6 +44,7 @@ version () {
 		ruby          ) ruby -v | awk '{ print "Ruby",$2 }';;
 		macruby       ) macruby -v | awk '{ print $1,$3,$4; }';;
 		scala         ) scalac -version | awk '{ print $1,$4}';;
+		mit-scheme    ) mit-scheme --version | egrep Scheme;;
 		sml           ) sml @SMLversion | awk '{ print "Standard ML",$2 }';;
 		chez          ) chez --version 2>&1 | awk '{ print "Chez Scheme",$1 }';;
 		sagittarius   ) sagittarius -v | awk '{ print $1,$2,$5 }';;
